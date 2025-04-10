@@ -1,0 +1,8 @@
+stages:
+  evaluate_model:
+    cmd: python 10/data/scripts/evaluate_model.py  # 需要指定实际执行的命令
+    deps:
+    - data/student_combined_cleaned.csv
+    - models/model.pkl
+    outs:
+    - eval_results.txt

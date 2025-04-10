@@ -1,0 +1,18 @@
+schema: '2.0'
+stages:
+  evaluate_model:
+    cmd: python 10/data/scripts/evaluate_model.py
+    deps:
+    - path: data/student_combined_cleaned.csv
+      hash: md5
+      md5: dedd128d95cbabf27d2fe5106c989605
+      size: 107883
+    - path: models/model.pkl
+      hash: md5
+      md5: 3ea30562d231877c8409f911bd9af507
+      size: 2793
+    outs:
+    - path: eval_results.txt
+      hash: md5
+      md5: c69e8b86316b388ea88d3e13877fb75a
+      size: 50
