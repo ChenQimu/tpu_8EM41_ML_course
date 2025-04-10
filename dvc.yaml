@@ -1,8 +1,15 @@
 stages:
-  evaluate_model:
-    cmd: python 10/data/scripts/evaluate_model.py  # 需要指定实际执行的命令
+  train_decision_tree:
+    cmd: python 10/data/scripts/train_decision_tree.py  # 训练决策树模型的命令
     deps:
-    - data/student_combined_cleaned.csv
-    - models/model.pkl
+      - data/student_combined_cleaned.csv  # 训练数据集
     outs:
-    - eval_results.txt
+      - models/tree_model.pkl  # 训练后的决策树模型
+
+  evaluate_model:
+    cmd: python 10/data/scripts/evaluate_model.py  # 模型评估命令
+    deps:
+      - data/student_combined_cleaned.csv
+      - models/tree_model.pkl  # 使用决策树模型进行评估
+    outs:
+      - eval_results.txt
