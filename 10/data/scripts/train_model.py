@@ -26,5 +26,8 @@ y_pred = model.predict(X_test)
 print("MSE:", mean_squared_error(y_test, y_pred))
 print("R²:", r2_score(y_test, y_pred))
 
+# 输出线性回归模型的权重（w）
+print("权重 (w):", model.coef_)
+
 # 保存训练好的模型
 joblib.dump(model, "models/model.pkl")
