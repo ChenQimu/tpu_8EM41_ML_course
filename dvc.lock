@@ -7,6 +7,10 @@ stages:
       hash: md5
       md5: dedd128d95cbabf27d2fe5106c989605
       size: 107883
+    - path: models/catboost_model_full.cbm
+      hash: md5
+      md5: 5a42a6db5d5e4129220d3e54ca6a44bb
+      size: 589392
     - path: models/model.pkl
       hash: md5
       md5: 3ea30562d231877c8409f911bd9af507
@@ -44,3 +48,19 @@ stages:
       hash: md5
       md5: 3ea30562d231877c8409f911bd9af507
       size: 2793
+  train_catboost:
+    cmd: python 10/data/scripts/data/train_catboost_full.py
+    deps:
+    - path: 10/data/scripts/data/train_catboost_full.py
+      hash: md5
+      md5: 660901e839aea8f24f3365e122f56134
+      size: 2186
+    - path: data/student_combined_cleaned.csv
+      hash: md5
+      md5: dedd128d95cbabf27d2fe5106c989605
+      size: 107883
+    outs:
+    - path: models/catboost_model_full.cbm
+      hash: md5
+      md5: 5a42a6db5d5e4129220d3e54ca6a44bb
+      size: 589392

@@ -30,3 +30,5 @@ stages:
     - models/catboost_model_full.cbm
     outs:
     - eval_results.txt
+  train_xgboost:
+    cmd: \
