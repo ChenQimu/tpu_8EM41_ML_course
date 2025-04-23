@@ -7,6 +7,10 @@ stages:
       hash: md5
       md5: dedd128d95cbabf27d2fe5106c989605
       size: 107883
+    - path: models/model.pkl
+      hash: md5
+      md5: 3ea30562d231877c8409f911bd9af507
+      size: 2793
     - path: models/tree_model.pkl
       hash: md5
       md5: f4046e56230b189a49b9c05c1c1042ea
@@ -28,3 +32,15 @@ stages:
       hash: md5
       md5: f4046e56230b189a49b9c05c1c1042ea
       size: 47713
+  train_linear_regression:
+    cmd: python 10/data/scripts/train_model.py
+    deps:
+    - path: data/student_combined_cleaned.csv
+      hash: md5
+      md5: dedd128d95cbabf27d2fe5106c989605
+      size: 107883
+    outs:
+    - path: models/model.pkl
+      hash: md5
+      md5: 3ea30562d231877c8409f911bd9af507
+      size: 2793
