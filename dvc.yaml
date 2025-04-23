@@ -1,25 +1,26 @@
 stages:
   train_linear_regression:
-    cmd: python 10/data/scripts/train_model.py  # 训练线性回归模型的命令
-    deps:
-    - data/student_combined_cleaned.csv    # 训练数据集
-    outs:
-    - models/model.pkl    # 训练后的线性回归模型
-
-  train_decision_tree:
-    cmd: python 10/data/scripts/train_decision_tree.py  # 训练决策树模型的命令
-    deps:
-    - data/student_combined_cleaned.csv    # 训练数据集
-    outs:
-    - models/tree_model.pkl    # 训练后的决策树模型
-
-  evaluate_model:
-    cmd: python 10/data/scripts/evaluate_model.py  # 模型评估命令
+    cmd: python 10/data/scripts/train_model.py
     deps:
     - data/student_combined_cleaned.csv
-    - models/model.pkl    # 使用线性回归模型进行评估
-    - models/tree_model.pkl    # 使用决策树模型进行评估
     outs:
-    - eval_results.txt
+    - models/model.pkl
+
+  train_decision_tree:
+    cmd: python 10/data/scripts/train_decision_tree.py
+    deps:
+    - data/student_combined_cleaned.csv
+    outs:
+    - models/tree_model.pkl
+
   train_catboost:
     cmd: \
+  evaluate_model:
+    cmd: python 10/data/scripts/evaluate_model.py
+    deps:
+    - data/student_combined_cleaned.csv
+    - models/model.pkl
+    - models/tree_model.pkl
+    - models/catboost_model_full.cbm
+    outs:
+    - eval_results.txt
