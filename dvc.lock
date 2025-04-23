@@ -64,3 +64,127 @@ stages:
       hash: md5
       md5: 5a42a6db5d5e4129220d3e54ca6a44bb
       size: 589392
+  train_xgboost:
+    cmd: python 10/data/scripts/train_xgboost_full.py
+    deps:
+    - path: 10/data/scripts/train_xgboost_full.py
+      hash: md5
+      md5: a29ecdb3bfbc877d8ea0c2cb59a5fd0a
+      size: 982
+    - path: data/student_combined_cleaned.csv
+      hash: md5
+      md5: dedd128d95cbabf27d2fe5106c989605
+      size: 107883
+    outs:
+    - path: 10/data/raw/xgboost_train_data_full.csv
+      hash: md5
+      md5: 64119642e909dbfb3d8823341d53873a
+      size: 196429
+    - path: models/xgboost_model_full.json
+      hash: md5
+      md5: e4863f7be99549ad04e3eb91ff07c48d
+      size: 2326633
+  evaluate_linear_regression:
+    cmd: python 10/data/scripts/evaluate_model.py
+    deps:
+    - path: 10/data/scripts/evaluate_model.py
+      hash: md5
+      md5: 4af369fd238337522cdf0dd8d7415f54
+      size: 1430
+    - path: data/student_combined_cleaned.csv
+      hash: md5
+      md5: dedd128d95cbabf27d2fe5106c989605
+      size: 107883
+    - path: models/model.pkl
+      hash: md5
+      md5: 3ea30562d231877c8409f911bd9af507
+      size: 2793
+    outs:
+    - path: data/linear_regression_eval_plot.png
+      hash: md5
+      md5: c81620e5fe3123381d1e266aefc68359
+      size: 258982
+    - path: data/linear_regression_eval_result.txt
+      hash: md5
+      md5: c69e8b86316b388ea88d3e13877fb75a
+      size: 50
+  evaluate_decision_tree:
+    cmd: python 10/data/scripts/evaluate_decision_tree.py
+    deps:
+    - path: 10/data/scripts/evaluate_decision_tree.py
+      hash: md5
+      md5: 04d760ad9d612d087f4cda8f6c2bbf87
+      size: 1193
+    - path: data/student_combined_cleaned.csv
+      hash: md5
+      md5: dedd128d95cbabf27d2fe5106c989605
+      size: 107883
+    - path: models/tree_model.pkl
+      hash: md5
+      md5: f4046e56230b189a49b9c05c1c1042ea
+      size: 47713
+    outs:
+    - path: data/decision_tree_eval_plot.png
+      hash: md5
+      md5: f68ae1a804b7cacb3a96669acc9e6e0b
+      size: 157067
+    - path: data/decision_tree_eval_result.txt
+      hash: md5
+      md5: 2c7947d7a3bfb9e6f959cd46df240d83
+      size: 50
+  evaluate_catboost:
+    cmd: python 10/data/scripts/data/evaluate_catboost_full.py
+    deps:
+    - path: 10/data/scripts/data/evaluate_catboost_full.py
+      hash: md5
+      md5: 621a0dcaa27ebfff54129f0206e49c2a
+      size: 2006
+    - path: data/student_combined_cleaned.csv
+      hash: md5
+      md5: dedd128d95cbabf27d2fe5106c989605
+      size: 107883
+    - path: models/catboost_model_full.cbm
+      hash: md5
+      md5: 5a42a6db5d5e4129220d3e54ca6a44bb
+      size: 589392
+    outs:
+    - path: data/catboost_eval_result.txt
+      hash: md5
+      md5: 3e5d02208863fb659c36a2e78ab6666a
+      size: 26
+    - path: data/catboost_feature_importance_eval.csv
+      hash: md5
+      md5: c6daf106a1cd56aa635696b50af8e925
+      size: 917
+    - path: data/catboost_feature_importance_eval.png
+      hash: md5
+      md5: 4cce97cd03985c00e1ff18cfa1af9bc9
+      size: 159509
+  evaluate_xgboost:
+    cmd: python 10/data/scripts/evaluate_xgboost.py
+    deps:
+    - path: 10/data/scripts/evaluate_xgboost.py
+      hash: md5
+      md5: b8151a85d9099652cf88025c82aaf6c2
+      size: 1923
+    - path: data/student_combined_cleaned.csv
+      hash: md5
+      md5: dedd128d95cbabf27d2fe5106c989605
+      size: 107883
+    - path: models/xgboost_model_full.json
+      hash: md5
+      md5: e4863f7be99549ad04e3eb91ff07c48d
+      size: 2326633
+    outs:
+    - path: 10/data/raw/xgboost_eval_data_full.csv
+      hash: md5
+      md5: 3a0f06c9d2da28298db9cb6ba281767c
+      size: 84844
+    - path: 10/data/raw/xgboost_feature_importance_full.png
+      hash: md5
+      md5: 3ede3f30096fd99efb2d22a15f45c17d
+      size: 373574
+    - path: data/xgboost_eval_result.txt
+      hash: md5
+      md5: 78c7bb009a89bd69023dc28729a65cd1
+      size: 26
