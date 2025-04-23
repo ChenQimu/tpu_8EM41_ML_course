@@ -14,7 +14,13 @@ stages:
     - models/tree_model.pkl
 
   train_catboost:
-    cmd: \
+    cmd: python 10/data/scripts/data/train_catboost_full.py
+    deps:
+    - data/student_combined_cleaned.csv
+    - 10/data/scripts/data/train_catboost_full.py
+    outs:
+    - models/catboost_model_full.cbm
+
   evaluate_model:
     cmd: python 10/data/scripts/evaluate_model.py
     deps:
