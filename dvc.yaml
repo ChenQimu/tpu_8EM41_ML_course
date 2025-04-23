@@ -51,10 +51,10 @@ stages:
     - data/decision_tree_eval_plot.png
 
   evaluate_catboost:
-    cmd: python 10/data/scripts/data/evaluate_catboost.py
+    cmd: python 10/data/scripts/data/evaluate_catboost_full.py
     deps:
     - data/student_combined_cleaned.csv
-    - 10/data/scripts/evaluate_catboost.py
+    - 10/data/scripts/data/evaluate_catboost_full.py
     - models/catboost_model_full.cbm
     outs:
     - data/catboost_eval_result.txt
@@ -70,3 +70,4 @@ stages:
     outs:
     - data/xgboost_eval_data_full.csv
     - data/xgboost_feature_importance_full.png
+    - data/xgboost_eval_result.txt
