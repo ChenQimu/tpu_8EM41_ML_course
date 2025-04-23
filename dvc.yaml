@@ -69,4 +69,4 @@ stages:
     - models/xgboost_model_full.json
     outs:
     - data/xgboost_eval_data_full.csv
-    - data/xgboost_feature_importance_full.png
+    - 10/data/raw/xgboost_feature_importance_full.png
