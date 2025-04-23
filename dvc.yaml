@@ -31,10 +31,10 @@ stages:
     - 10/data/raw/xgboost_train_data_full.csv
 
   evaluate_linear_regression:
-    cmd: python 10/data/scripts/evaluate_linear_regression.py
+    cmd: python 10/data/scripts/evaluate_model.py
     deps:
     - data/student_combined_cleaned.csv
-    - 10/data/scripts/evaluate_linear_regression.py
+    - 10/data/scripts/evaluate_model.py
     - models/model.pkl
     outs:
     - data/linear_regression_eval_result.txt
