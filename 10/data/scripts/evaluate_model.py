@@ -31,7 +31,7 @@ print("MSE:", mse)
 print("R²:", r2)
 
 # 将评估结果保存到 eval_results.txt，使用 utf-8 编码
-with open('eval_results.txt', 'w', encoding='utf-8') as f:
+with open('data/linear_regression_eval_result.txt', 'w', encoding='utf-8') as f:
     f.write(f'MSE: {mse}\n')
     f.write(f'R²: {r2}\n')
 
@@ -42,4 +42,8 @@ plt.plot([0, 20], [0, 20], color='red', linestyle='--')  # 绘制理想的完美
 plt.xlabel("True Values (G3)")
 plt.ylabel("Predictions (G3)")
 plt.title("True vs Predicted Grades")
+
+# 保存图像（用于 DVC 追踪输出）
+plt.savefig("data/linear_regression_eval_plot.png", dpi=300)
+
 plt.show()
