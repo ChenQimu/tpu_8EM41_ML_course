@@ -21,14 +21,52 @@ stages:
     outs:
     - models/catboost_model_full.cbm
 
-  evaluate_model:
-    cmd: python 10/data/scripts/evaluate_model.py
+  train_xgboost:
+    cmd: python 10/data/scripts/train_xgboost_full.py
     deps:
     - data/student_combined_cleaned.csv
+    - 10/data/scripts/train_xgboost_full.py
+    outs:
+    - models/xgboost_model_full.json
+    - data/xgboost_train_data_full.csv
+
+  evaluate_linear_regression:
+    cmd: python 10/data/scripts/evaluate_linear_regression.py
+    deps:
+    - data/student_combined_cleaned.csv
+    - 10/data/scripts/evaluate_linear_regression.py
     - models/model.pkl
+    outs:
+    - data/linear_regression_eval_result.txt
+    - data/linear_regression_eval_plot.png
+
+  evaluate_decision_tree:
+    cmd: python 10/data/scripts/evaluate_decision_tree.py
+    deps:
+    - data/student_combined_cleaned.csv
+    - 10/data/scripts/evaluate_decision_tree.py
     - models/tree_model.pkl
+    outs:
+    - data/decision_tree_eval_result.txt
+    - data/decision_tree_eval_plot.png
+
+  evaluate_catboost:
+    cmd: python 10/data/scripts/data/evaluate_catboost.py
+    deps:
+    - data/student_combined_cleaned.csv
+    - 10/data/scripts/evaluate_catboost.py
     - models/catboost_model_full.cbm
     outs:
-    - eval_results.txt
-  train_xgboost:
-    cmd: \
+    - data/catboost_eval_result.txt
+    - data/catboost_feature_importance_eval.png
+    - data/catboost_feature_importance_eval.csv
+
+  evaluate_xgboost:
+    cmd: python 10/data/scripts/evaluate_xgboost.py
+    deps:
+    - data/student_combined_cleaned.csv
+    - 10/data/scripts/evaluate_xgboost.py
+    - models/xgboost_model_full.json
+    outs:
+    - data/xgboost_eval_data_full.csv
+    - data/xgboost_feature_importance_full.png
