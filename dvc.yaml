@@ -30,6 +30,18 @@ stages:
     - models/xgboost_model_full.json
     - 10/data/raw/xgboost_train_data_full.csv
 
+  train_nn:
+    cmd: python 10/data/scripts/train_nn_full.py
+    deps:
+    - data/student_combined_cleaned.csv
+    - 10/data/scripts/train_nn_full.py
+    outs:
+    - models/nn_model.pth
+    - 10/data/raw/nn_train_data_full.csv
+    - 10/data/raw/nn_loss_curve.png
+    - 10/data/raw/nn_feature_columns.txt
+    - runs/nn_experiment
+
   evaluate_linear_regression:
     cmd: python 10/data/scripts/evaluate_model.py
     deps:
@@ -71,3 +83,15 @@ stages:
     - 10/data/raw/xgboost_eval_data_full.csv
     - 10/data/raw/xgboost_feature_importance_full.png
     - data/xgboost_eval_result.txt
+
+  evaluate_nn:
+    cmd: python 10/data/scripts/evaluate_nn.py
+    deps:
+    - data/student_combined_cleaned.csv
+    - 10/data/scripts/evaluate_nn.py
+    - models/nn_model.pth
+    - 10/data/raw/nn_feature_columns.txt
+    outs:
+    - 10/data/raw/nn_eval_data_full.csv
+    - data/nn_eval_result.txt
+    - data/nn_eval_plot.png
