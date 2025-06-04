@@ -6,3 +6,11 @@
 /nn_loss_curve.png
 /nn_feature_columns.txt
 /nn_eval_data_full.csv
+/decision_tree_train_data.csv
+/decision_tree_eval_data.csv
+/catboost_train.csv
+/catboost_eval_data.csv
+/xgboost_train_data.csv
+/xgboost_eval_data.csv
+/nn_train_data.csv
+/nn_eval_data.csv

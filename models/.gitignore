@@ -2,3 +2,7 @@
 /model.pkl
 /catboost_model_full.cbm
 /nn_model.pth
+/linear_regression_model.pkl
+/decision_tree_model.pkl
+/catboost_model.cbm
+/xgboost_model.json
