@@ -1,97 +1,283 @@
 stages:
   train_linear_regression:
-    cmd: python 10/data/scripts/train_model.py
+    cmd: python 10/data/scripts/train_linear_regression.py
     deps:
-    - data/student_combined_cleaned.csv
+      - 10/data/scripts/train_linear_regression.py
+      - ${linear_regression.data_path}
+      - params.yaml
+    params:
+      - linear_regression.test_size
+      - linear_regression.random_state
+      - linear_regression.model_output
     outs:
-    - models/model.pkl
+      - models/linear_regression_model.pkl
+
+  evaluate_linear_regression:
+    cmd: python 10/data/scripts/evaluate_linear_regression.py
+    deps:
+      - 10/data/scripts/evaluate_linear_regression.py
+      - ${linear_regression.data_path}
+      - models/linear_regression_model.pkl
+      - params.yaml
+    params:
+      - linear_regression.test_size
+      - linear_regression.random_state
+      - linear_regression.plot_alpha
+      - linear_regression.plot_figsize
+      - linear_regression.plot_line_range
+    outs:
+      - results/linear_regression_eval_result.txt
+      - results/linear_regression_eval_plot.png
+
+  evaluate_linear_regression_full:
+    cmd: python 10/data/scripts/evaluate_linear_regression_full.py
+    deps:
+      - 10/data/scripts/evaluate_linear_regression_full.py
+      - ${linear_regression.data_path}
+      - models/linear_regression_model.pkl
+      - params.yaml
+    params:
+      - linear_regression.plot_alpha
+      - linear_regression.plot_figsize
+      - linear_regression.plot_line_range
+    outs:
+      - results/linear_regression_eval_full_result.txt
+      - results/linear_regression_eval_full_plot.png
 
   train_decision_tree:
     cmd: python 10/data/scripts/train_decision_tree.py
     deps:
-    - data/student_combined_cleaned.csv
+      - 10/data/scripts/train_decision_tree.py
+      - data/student_combined_cleaned.csv
+    params:
+      - decision_tree.data_path
+      - decision_tree.model_output
     outs:
-    - models/tree_model.pkl
-
-  train_catboost:
-    cmd: python 10/data/scripts/data/train_catboost_full.py
-    deps:
-    - data/student_combined_cleaned.csv
-    - 10/data/scripts/data/train_catboost_full.py
-    outs:
-    - models/catboost_model_full.cbm
-
-  train_xgboost:
-    cmd: python 10/data/scripts/train_xgboost_full.py
-    deps:
-    - data/student_combined_cleaned.csv
-    - 10/data/scripts/train_xgboost_full.py
-    outs:
-    - models/xgboost_model_full.json
-    - 10/data/raw/xgboost_train_data_full.csv
-
-  train_nn:
-    cmd: python 10/data/scripts/train_nn_full.py
-    deps:
-    - data/student_combined_cleaned.csv
-    - 10/data/scripts/train_nn_full.py
-    outs:
-    - models/nn_model.pth
-    - 10/data/raw/nn_train_data_full.csv
-    - 10/data/raw/nn_loss_curve.png
-    - 10/data/raw/nn_feature_columns.txt
-    - runs/nn_experiment
-
-  evaluate_linear_regression:
-    cmd: python 10/data/scripts/evaluate_model.py
-    deps:
-    - data/student_combined_cleaned.csv
-    - 10/data/scripts/evaluate_model.py
-    - models/model.pkl
-    outs:
-    - data/linear_regression_eval_result.txt
-    - data/linear_regression_eval_plot.png
+      - models/decision_tree_model.pkl
+      - 10/data/raw/decision_tree_train_data.csv
 
   evaluate_decision_tree:
     cmd: python 10/data/scripts/evaluate_decision_tree.py
     deps:
-    - data/student_combined_cleaned.csv
-    - 10/data/scripts/evaluate_decision_tree.py
-    - models/tree_model.pkl
+      - 10/data/scripts/evaluate_decision_tree.py
+      - data/student_combined_cleaned.csv
+      - models/decision_tree_model.pkl
+    params:
+      - decision_tree.data_path
+      - decision_tree.model_output
+      - decision_tree.test_size
+      - decision_tree.random_state
+      - decision_tree.plot_figsize
+      - decision_tree.plot_alpha
+      - decision_tree.plot_line_range
     outs:
-    - data/decision_tree_eval_result.txt
-    - data/decision_tree_eval_plot.png
+      - 10/data/raw/decision_tree_eval_data.csv
+      - results/decision_tree_eval_result.txt
+      - results/decision_tree_eval_plot.png
+
+  evaluate_decision_tree_full:
+    cmd: python 10/data/scripts/evaluate_decision_tree_full.py
+    deps:
+      - 10/data/scripts/evaluate_decision_tree_full.py
+      - data/student_combined_cleaned.csv
+      - models/decision_tree_model.pkl
+    params:
+      - decision_tree.data_path
+      - decision_tree.model_output
+      - decision_tree.plot_figsize
+      - decision_tree.plot_alpha
+      - decision_tree.plot_line_range
+    outs:
+      - results/decision_tree_eval_full_result.txt
+      - results/decision_tree_eval_full_plot.png
+
+
+  train_catboost:
+    cmd: python 10/data/scripts/train_catboost.py
+    deps:
+      - 10/data/scripts/train_catboost.py
+      - ${catboost.data_path}
+      - params.yaml
+    params:
+      - catboost.data_path
+      - catboost.target
+      - catboost.model_output
+      - catboost.test_size
+      - catboost.random_state
+      - catboost.iterations
+      - catboost.learning_rate
+      - catboost.depth
+      - catboost.loss_function
+      - catboost.verbose
+      - catboost.categorical_features
+    outs:
+      - models/catboost_model.cbm
+      - E:/TPU_Work/jidian_shujufenxi/tpu_8EM41_ML_course/10/data/raw/catboost_train.csv
+      - results/catboost_feature_importance_train.csv
 
   evaluate_catboost:
-    cmd: python 10/data/scripts/data/evaluate_catboost_full.py
+    cmd: python 10/data/scripts/evaluate_catboost.py
     deps:
-    - data/student_combined_cleaned.csv
-    - 10/data/scripts/data/evaluate_catboost_full.py
-    - models/catboost_model_full.cbm
+      - 10/data/scripts/evaluate_catboost.py
+      - ${catboost.data_path}
+      - models/catboost_model.cbm
+      - params.yaml
+    params:
+      - catboost.test_size
+      - catboost.random_state
+      - catboost.target
+      - catboost.categorical_features
+      - catboost.plot_alpha
+      - catboost.plot_figsize
+      - catboost.plot_line_range
     outs:
-    - data/catboost_eval_result.txt
-    - data/catboost_feature_importance_eval.png
-    - data/catboost_feature_importance_eval.csv
+      - E:/TPU_Work/jidian_shujufenxi/tpu_8EM41_ML_course/10/data/raw/catboost_eval_data.csv
+      - results/catboost_eval_result.txt
+      - results/catboost_eval_plot.png
+
+  evaluate_catboost_full:
+    cmd: python 10/data/scripts/evaluate_catboost_full.py
+    deps:
+      - 10/data/scripts/evaluate_catboost_full.py
+      - ${catboost.data_path}
+      - models/catboost_model.cbm
+      - params.yaml
+    params:
+      - catboost.plot_alpha
+      - catboost.plot_figsize
+      - catboost.plot_line_range
+      - catboost.target
+      - catboost.categorical_features
+    outs:
+      - results/catboost_eval_result_full.txt
+      - results/catboost_eval_plot_full.png
+
+
+  train_xgboost:
+    cmd: python 10/data/scripts/train_xgboost.py
+    deps:
+      - 10/data/scripts/train_xgboost.py
+      - ${xgboost.data_path}
+      - params.yaml
+    params:
+      - xgboost.data_path
+      - xgboost.target
+      - xgboost.test_size
+      - xgboost.random_state
+      - xgboost.n_estimators
+      - xgboost.max_depth
+      - xgboost.learning_rate
+      - xgboost.model_output
+    outs:
+      - ${xgboost.model_output}
+      - E:/TPU_Work/jidian_shujufenxi/tpu_8EM41_ML_course/10/data/raw/xgboost_train_data.csv
 
   evaluate_xgboost:
     cmd: python 10/data/scripts/evaluate_xgboost.py
     deps:
-    - data/student_combined_cleaned.csv
-    - 10/data/scripts/evaluate_xgboost.py
-    - models/xgboost_model_full.json
+      - 10/data/scripts/evaluate_xgboost.py
+      - ${xgboost.data_path}
+      - ${xgboost.model_output}
+      - params.yaml
+    params:
+      - xgboost.data_path
+      - xgboost.target
+      - xgboost.test_size
+      - xgboost.random_state
+      - xgboost.plot_figsize
+      - xgboost.importance_plot_output
     outs:
-    - 10/data/raw/xgboost_eval_data_full.csv
-    - 10/data/raw/xgboost_feature_importance_full.png
-    - data/xgboost_eval_result.txt
+      - E:/TPU_Work/jidian_shujufenxi/tpu_8EM41_ML_course/10/data/raw/xgboost_eval_data.csv
+      - ${xgboost.importance_plot_output}
+      - results/xgboost_eval_result.txt
+
+  evaluate_xgboost_full:
+    cmd: python 10/data/scripts/evaluate_xgboost_full.py
+    deps:
+      - 10/data/scripts/evaluate_xgboost_full.py
+      - ${xgboost.data_path}
+      - ${xgboost.model_output}
+      - params.yaml
+    params:
+      - xgboost.data_path
+      - xgboost.target
+      - xgboost.plot_figsize
+      - xgboost.importance_plot_output_full
+    outs:
+      - results/xgboost_eval_result_full.txt
+      - ${xgboost.importance_plot_output_full}
+
+
+  train_nn:
+    cmd: python 10/data/scripts/train_nn.py
+    deps:
+      - ${nn.data_path}
+      - 10/data/scripts/train_nn.py
+      - params.yaml
+    params:
+      - nn.data_path
+      - nn.target
+      - nn.test_size
+      - nn.random_state
+      - nn.learning_rate
+      - nn.epochs
+      - nn.model_output
+      - nn.train_data_output
+      - nn.loss_plot_output
+      - nn.feature_columns_output
+      - nn.tensorboard_log_dir
+      - nn.plot_figsize
+    outs:
+      - ${nn.model_output}
+      - ${nn.train_data_output}
+      - ${nn.loss_plot_output}
+      - ${nn.feature_columns_output}
+      - ${nn.tensorboard_log_dir}
 
   evaluate_nn:
     cmd: python 10/data/scripts/evaluate_nn.py
     deps:
-    - data/student_combined_cleaned.csv
-    - 10/data/scripts/evaluate_nn.py
-    - models/nn_model.pth
-    - 10/data/raw/nn_feature_columns.txt
+      - ${nn.data_path}
+      - ${nn.model_output}
+      - ${nn.feature_columns_output}
+      - 10/data/scripts/evaluate_nn.py
+      - params.yaml
+    params:
+      - nn.data_path
+      - nn.target
+      - nn.test_size
+      - nn.random_state
+      - nn.feature_columns_output
+      - nn.model_output
+      - nn.eval_data_output
+      - nn.eval_metrics_output
+      - nn.eval_plot_output
+      - nn.plot_figsize
+      - nn.plot_alpha
+      - nn.plot_line_range
     outs:
-    - 10/data/raw/nn_eval_data_full.csv
-    - data/nn_eval_result.txt
-    - data/nn_eval_plot.png
+      - ${nn.eval_data_output}
+      - ${nn.eval_metrics_output}
+      - ${nn.eval_plot_output}
+
+  evaluate_nn_full:
+    cmd: python 10/data/scripts/evaluate_nn_full.py
+    deps:
+      - ${nn.data_path}
+      - ${nn.model_output}
+      - ${nn.feature_columns_output}
+      - 10/data/scripts/evaluate_nn_full.py
+      - params.yaml
+    params:
+      - nn.data_path
+      - nn.target
+      - nn.model_output
+      - nn.feature_columns_output
+      - nn.eval_metrics_output_full
+      - nn.eval_plot_output_full
+      - nn.plot_figsize
+      - nn.plot_alpha
+      - nn.plot_line_range
+    outs:
+      - ${nn.eval_metrics_output_full}
+      - ${nn.eval_plot_output_full}

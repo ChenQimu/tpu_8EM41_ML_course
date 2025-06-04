@@ -1,0 +1,95 @@
+linear_regression:
+  data_path: data/student_combined_cleaned.csv
+  model_output: models/linear_regression_model.pkl
+  test_size: 0.3
+  random_state: 42
+  plot_alpha: 0.6
+  plot_figsize: [8, 6]
+  plot_line_range: [0, 20]
+
+decision_tree:
+  data_path: data/student_combined_cleaned.csv
+  model_output: models/decision_tree_model.pkl
+  test_size: 0.3
+  random_state: 42
+  plot_figsize: [8, 6]
+  plot_alpha: 0.6
+  plot_line_range: [0, 20]
+
+catboost:
+  data_path: data/student_combined_cleaned.csv
+  model_output: models/catboost_model.cbm
+  importance_output: results/catboost_feature_importance_train.csv
+
+  target: G3
+  test_size: 0.3
+  random_state: 42
+
+  iterations: 500
+  learning_rate: 0.1
+  depth: 6
+  loss_function: RMSE
+  verbose: 100
+
+  categorical_features:
+    - school
+    - sex
+    - address
+    - famsize
+    - Pstatus
+    - Mjob
+    - Fjob
+    - reason
+    - guardian
+    - schoolsup
+    - famsup
+    - paid
+    - activities
+    - nursery
+    - higher
+    - internet
+    - romantic
+    - class
+
+  plot_alpha: 0.6
+  plot_figsize: [8, 6]
+  plot_line_range: [0, 20]
+
+xgboost:
+  data_path: data/student_combined_cleaned.csv
+  target: G3
+  model_output: models/xgboost_model.json
+  importance_plot_output: results/xgboost_feature_importance.png
+  importance_plot_output_full: results/xgboost_feature_importance_full.png
+
+  test_size: 0.3
+  random_state: 42
+  n_estimators: 500
+  max_depth: 6
+  learning_rate: 0.1
+
+  plot_figsize: [12, 6]
+
+nn:
+  data_path: data/student_combined_cleaned.csv
+  target: G3
+  model_output: models/nn_model.pth
+  train_data_output: 10/data/raw/nn_train_data.csv
+  eval_data_output: 10/data/raw/nn_eval_data.csv
+  loss_plot_output: 10/data/raw/nn_loss_curve.png
+  feature_columns_output: 10/data/raw/nn_feature_columns.txt
+  tensorboard_log_dir: runs/nn_experiment
+  eval_metrics_output: results/nn_eval_result.txt
+  eval_plot_output: results/nn_eval_plot.png
+
+  eval_metrics_output_full: results/nn_eval_result_full.txt
+  eval_plot_output_full: results/nn_eval_plot_full.png
+
+  test_size: 0.3
+  random_state: 42
+  learning_rate: 0.001
+  epochs: 100
+
+  plot_alpha: 0.6
+  plot_figsize: [8, 6]
+  plot_line_range: [0, 20]
