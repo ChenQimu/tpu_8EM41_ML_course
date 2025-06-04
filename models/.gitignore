@@ -1,3 +1,4 @@
 /tree_model.pkl
 /model.pkl
 /catboost_model_full.cbm
+/nn_model.pth

@@ -188,3 +188,68 @@ stages:
       hash: md5
       md5: 78c7bb009a89bd69023dc28729a65cd1
       size: 26
+  train_nn:
+    cmd: python 10/data/scripts/train_nn_full.py
+    deps:
+    - path: 10/data/scripts/train_nn_full.py
+      hash: md5
+      md5: 289bfbc58487d553e4152429c7cbfd3a
+      size: 3130
+    - path: data/student_combined_cleaned.csv
+      hash: md5
+      md5: dedd128d95cbabf27d2fe5106c989605
+      size: 107883
+    outs:
+    - path: 10/data/raw/nn_feature_columns.txt
+      hash: md5
+      md5: 0fefbc1558ccc1156b14998a4fb68450
+      size: 693
+    - path: 10/data/raw/nn_loss_curve.png
+      hash: md5
+      md5: 80386c1c64555a9e6f4ef743fd3c4fe7
+      size: 26696
+    - path: 10/data/raw/nn_train_data_full.csv
+      hash: md5
+      md5: 64119642e909dbfb3d8823341d53873a
+      size: 196429
+    - path: models/nn_model.pth
+      hash: md5
+      md5: 46e165b76fbcea35ae7680eabc59f801
+      size: 67553
+    - path: runs/nn_experiment
+      hash: md5
+      md5: 65d194d9a86f1533bda5a0e16d1940da.dir
+      size: 49037
+      nfiles: 1
+  evaluate_nn:
+    cmd: python 10/data/scripts/evaluate_nn.py
+    deps:
+    - path: 10/data/raw/nn_feature_columns.txt
+      hash: md5
+      md5: 0fefbc1558ccc1156b14998a4fb68450
+      size: 693
+    - path: 10/data/scripts/evaluate_nn.py
+      hash: md5
+      md5: 7f569cd12766ded87625c24a25592e04
+      size: 2876
+    - path: data/student_combined_cleaned.csv
+      hash: md5
+      md5: dedd128d95cbabf27d2fe5106c989605
+      size: 107883
+    - path: models/nn_model.pth
+      hash: md5
+      md5: 46e165b76fbcea35ae7680eabc59f801
+      size: 67553
+    outs:
+    - path: 10/data/raw/nn_eval_data_full.csv
+      hash: md5
+      md5: 3a0f06c9d2da28298db9cb6ba281767c
+      size: 84844
+    - path: data/nn_eval_plot.png
+      hash: md5
+      md5: 7d0a22ffd329ccdb6154fee54553979c
+      size: 48195
+    - path: data/nn_eval_result.txt
+      hash: md5
+      md5: 87bef72678a8aa0edd6877ab22a01a18
+      size: 27

@@ -2,3 +2,7 @@
 /student-por.csv
 /xgboost_eval_data_full.csv
 /xgboost_feature_importance_full.png
+/nn_train_data_full.csv
+/nn_loss_curve.png
+/nn_feature_columns.txt
+/nn_eval_data_full.csv
