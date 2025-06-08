@@ -8,6 +8,7 @@ stages:
     params:
       - linear_regression.test_size
       - linear_regression.random_state
+      - linear_regression.alpha  # 添加alpha超参数
       - linear_regression.model_output
     outs:
       - models/linear_regression_model.pkl
@@ -52,6 +53,8 @@ stages:
     params:
       - decision_tree.data_path
       - decision_tree.model_output
+      - decision_tree.max_depth  # 控制树的最大深度
+      - decision_tree.min_samples_split  # 最小样本分裂数
     outs:
       - models/decision_tree_model.pkl
       - 10/data/raw/decision_tree_train_data.csv
@@ -162,6 +165,8 @@ stages:
     params:
       - xgboost.data_path
       - xgboost.target
+      - xgboost.subsample  # 样本比例
+      - xgboost.colsample_bytree  # 特征比例
       - xgboost.test_size
       - xgboost.random_state
       - xgboost.n_estimators
@@ -220,6 +225,8 @@ stages:
       - nn.test_size
       - nn.random_state
       - nn.learning_rate
+      - nn.batch_size  # 批次大小
+      - nn.dropout  # dropout比例
       - nn.epochs
       - nn.model_output
       - nn.train_data_output

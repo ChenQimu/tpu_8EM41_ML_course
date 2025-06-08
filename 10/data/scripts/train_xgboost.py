@@ -1,10 +1,15 @@
 import pandas as pd
 import xgboost as xgb
 from sklearn.model_selection import train_test_split
+import os
 import yaml
 
+# 构建 params.yaml 的正确路径（向上三级）
+current_dir = os.path.dirname(__file__)
+params_path = os.path.abspath(os.path.join(current_dir, '../../../params.yaml'))
+
 # 读取参数
-with open("params.yaml", "r", encoding="utf-8") as f:
+with open(params_path, encoding='utf-8') as f:
     params = yaml.safe_load(f)["xgboost"]
 
 # 读取清洗后的数据

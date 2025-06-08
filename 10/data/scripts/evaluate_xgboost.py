@@ -3,10 +3,16 @@ import xgboost as xgb
 from sklearn.metrics import mean_squared_error, r2_score
 from sklearn.model_selection import train_test_split
 import matplotlib.pyplot as plt
+import os
 import yaml
 
+# 获取当前脚本目录
+current_dir = os.path.dirname(__file__)
+# 构造 params.yaml 的绝对路径（项目根目录）
+params_path = os.path.abspath(os.path.join(current_dir, '../../../params.yaml'))
+
 # 读取参数
-with open("params.yaml", "r", encoding="utf-8") as f:
+with open(params_path, encoding='utf-8') as f:
     params = yaml.safe_load(f)["xgboost"]
 
 # 加载数据

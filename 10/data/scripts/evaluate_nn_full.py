@@ -3,10 +3,15 @@ import torch
 import torch.nn as nn
 from sklearn.metrics import mean_squared_error, r2_score
 import matplotlib.pyplot as plt
+import os
 import yaml
 
+# 获取当前脚本的路径
+current_dir = os.path.dirname(__file__)
+params_path = os.path.abspath(os.path.join(current_dir, '../../../params.yaml'))
+
 # 读取配置
-with open("params.yaml", "r", encoding="utf-8") as f:
+with open(params_path, encoding='utf-8') as f:
     params = yaml.safe_load(f)["nn"]
 
 # 加载数据
@@ -29,13 +34,17 @@ class Net(nn.Module):
     def __init__(self, input_dim):
         super().__init__()
         self.fc1 = nn.Linear(input_dim, 128)
+        self.dropout1 = nn.Dropout(p=params["dropout"])
         self.fc2 = nn.Linear(128, 64)
+        self.dropout2 = nn.Dropout(p=params["dropout"])
         self.fc3 = nn.Linear(64, 1)
         self.relu = nn.ReLU()
 
     def forward(self, x):
         x = self.relu(self.fc1(x))
+        x = self.dropout1(x)
         x = self.relu(self.fc2(x))
+        x = self.dropout2(x)
         return self.fc3(x)
 
 # 加载模型

@@ -6,8 +6,12 @@ import os
 import matplotlib.pyplot as plt
 import yaml  # 用于读取 params.yaml 中的参数
 
+# 构建 params.yaml 的正确路径（向上三级）
+current_dir = os.path.dirname(__file__)
+params_path = os.path.abspath(os.path.join(current_dir, '../../../params.yaml'))
+
 # 读取参数配置
-with open("params.yaml", "r") as f:
+with open(params_path, encoding='utf-8') as f:
     params = yaml.safe_load(f)['decision_tree']
 
 # 读取清理后的数据

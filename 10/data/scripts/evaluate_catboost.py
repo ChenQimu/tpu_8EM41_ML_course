@@ -6,8 +6,13 @@ from sklearn.metrics import mean_squared_error, r2_score
 import matplotlib.pyplot as plt
 import os
 
+# 获取当前脚本目录
+current_dir = os.path.dirname(__file__)
+# 构造 params.yaml 的绝对路径（项目根目录）
+params_path = os.path.abspath(os.path.join(current_dir, '../../../params.yaml'))
+
 # 读取配置文件
-with open("params.yaml", "r", encoding="utf-8") as f:
+with open(params_path, encoding='utf-8') as f:
     params = yaml.safe_load(f)["catboost"]
 
 # 加载训练好的 CatBoost 模型

@@ -5,8 +5,12 @@ from sklearn.model_selection import train_test_split
 import os
 import matplotlib.pyplot as plt
 
+# 构建 params.yaml 的正确路径（向上三级）
+current_dir = os.path.dirname(__file__)
+params_path = os.path.abspath(os.path.join(current_dir, '../../../params.yaml'))
+
 # 读取配置
-with open("params.yaml", "r", encoding="utf-8") as f:
+with open(params_path, encoding='utf-8') as f:
     params = yaml.safe_load(f)["catboost"]
 
 # 加载清洗后的数据

@@ -6,6 +6,7 @@ linear_regression:
   plot_alpha: 0.6
   plot_figsize: [8, 6]
   plot_line_range: [0, 20]
+  alpha: 1.0 #正则化超参数（L2）
 
 decision_tree:
   data_path: data/student_combined_cleaned.csv
@@ -15,6 +16,10 @@ decision_tree:
   plot_figsize: [8, 6]
   plot_alpha: 0.6
   plot_line_range: [0, 20]
+  min_samples_split: 2  # 最小样本分裂数
+  min_samples_leaf: 1   # 最小样本叶子数
+  max_features: "auto"  # 最大特征数
+  max_depth: 10         # 控制树的最大深度
 
 catboost:
   data_path: data/student_combined_cleaned.csv
@@ -25,8 +30,8 @@ catboost:
   test_size: 0.3
   random_state: 42
 
-  iterations: 500
-  learning_rate: 0.1
+  iterations: 1000 # 增加迭代次数
+  learning_rate: 0.05 # 调整学习率
   depth: 6
   loss_function: RMSE
   verbose: 100
@@ -67,6 +72,8 @@ xgboost:
   n_estimators: 500
   max_depth: 6
   learning_rate: 0.1
+  subsample: 0.8  # 添加样本比例
+  colsample_bytree: 0.8  # 添加特征比例
 
   plot_figsize: [12, 6]
 
@@ -89,6 +96,8 @@ nn:
   random_state: 42
   learning_rate: 0.001
   epochs: 100
+  batch_size: 32   # 添加批次大小
+  dropout: 0.2     # 添加dropout比例
 
   plot_alpha: 0.6
   plot_figsize: [8, 6]

@@ -7,8 +7,13 @@ import matplotlib.pyplot as plt
 import yaml
 import os
 
+# 获取当前脚本目录
+current_dir = os.path.dirname(__file__)
+# 构造 params.yaml 的绝对路径（项目根目录）
+params_path = os.path.abspath(os.path.join(current_dir, '../../../params.yaml'))
+
 # 加载参数
-with open("params.yaml", "r", encoding="utf-8") as f:
+with open(params_path, encoding='utf-8') as f:
     params = yaml.safe_load(f)["nn"]
 
 # 参数路径
@@ -40,13 +45,17 @@ class Net(nn.Module):
     def __init__(self, input_dim):
         super().__init__()
         self.fc1 = nn.Linear(input_dim, 128)
+        self.dropout1 = nn.Dropout(p=params["dropout"])
         self.fc2 = nn.Linear(128, 64)
+        self.dropout2 = nn.Dropout(p=params["dropout"])
         self.fc3 = nn.Linear(64, 1)
         self.relu = nn.ReLU()
 
     def forward(self, x):
         x = self.relu(self.fc1(x))
+        x = self.dropout1(x)
         x = self.relu(self.fc2(x))
+        x = self.dropout2(x)
         return self.fc3(x)
 
 model = Net(input_dim=len(feature_columns))

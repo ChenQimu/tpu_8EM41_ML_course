@@ -3,10 +3,16 @@ import joblib
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import mean_squared_error, r2_score
 import matplotlib.pyplot as plt
+import os
 import yaml
 
+# 获取当前脚本目录
+current_dir = os.path.dirname(__file__)
+# 构造 params.yaml 的绝对路径（项目根目录）
+params_path = os.path.abspath(os.path.join(current_dir, '../../../params.yaml'))
+
 # 读取参数配置
-with open("params.yaml", "r") as f:
+with open(params_path, encoding='utf-8') as f:
     params = yaml.safe_load(f)['linear_regression']
 
 # 加载训练好的线性回归模型
